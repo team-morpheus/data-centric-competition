@@ -1,0 +1,16 @@
+.mypy_cache/
+/.coverage
+/.coverage.*
+.ipynb_checkpoints/
+/.nox/
+/.python-version
+/.pytype/
+/dist/
+/docs/_build/
+/docs/source/_autosummary/
+/src/*.egg-info/
+__pycache__/
+/.idea/
+.pytest_cache/
+/.cache/
+.env

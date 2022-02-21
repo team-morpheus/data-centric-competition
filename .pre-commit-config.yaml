@@ -1,0 +1,201 @@
+default_stages: [commit, manual]
+#Install using:
+# pre-commit install --install-hooks -t pre-commit -t commit-msg -t post-commit -t pre-push
+repos:
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.15.1
+    hooks:
+      - id: gitlint
+        stages: [commit-msg]
+        args: ["--config=common/conf_files/.gitlint", --staged, --msg-filename]
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.1.0
+    hooks:
+      - id: codespell
+        exclude: ^notebooks/notes.*$
+        args: [--ignore-words-list=word1, word2]
+
+  - repo: https://github.com/pre-commit/mirrors-pylint
+    rev: "v2.7.4"
+    hooks:
+      - id: pylint
+        exclude: ^(notebooks.*|.*test.*)$
+        types: [python]
+        entry: python -m pylint
+        args: ["-rn", "-sn", "--rcfile=common/conf_files/.pylintrc"]
+
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.8.0
+    hooks:
+      - id: isort
+        args: ["--profile=black"]
+        exclude: ^notebooks.*$
+
+  - repo: https://github.com/ambv/black
+    rev: 21.5b2
+    hooks:
+      - id: black
+        exclude: ^notebooks.*$
+        args: ["--line-length=120"]
+
+  - repo: https://github.com/pycqa/flake8
+    # disable using: `# noqa`
+    rev: 3.9.2
+    hooks:
+      - id: flake8
+        exclude: ^notebooks.*$
+        additional_dependencies: # https://dev.to/mmphego/why-you-need-to-stop-using-git-hooks-41
+          [
+            # flake8-return, # has problems with non ASCII characters
+            flake8-simplify,
+            flake8-2020, # flake8 plugin which checks for misuse of `sys.version` or `sys.version_info`
+            flake8-absolute-import, # uses a simple check of the AST for each from x import y statement to flag relative imports.
+            flake8-blind-except, # A flake8 extension that checks for blind except: statements
+            flake8-bugbear, # A plugin for flake8 finding likely bugs and design problems in your program.
+            flake8-builtins, # Check for python builtins being used as variables or parameters.
+            flake8-comprehensions, # It helps you write a better list/set/dict comprehensions.
+            flake8-deprecated, # Warns about deprecated method calls.
+            flake8-eradicate, # Flake8 plugin to find commented out code, disable E800 using `# noqa: E800`
+            # flake8-pytest, # pytest assert checker plugin for flake8
+            flake8-tabs, # Tab (or Spaces) indentation style checker for flake8
+            # pep8-naming, # Check PEP-8 naming conventions, plugin for flake8  # covered by pylint
+          ]
+
+  # considered wily, radon & xenon for code complexity, satisfied with flake8 complexity scores
+
+  - repo: https://github.com/jendrikseipp/vulture
+    # disable using: exclude in vulture's pyproject.toml
+    rev: "v2.3"
+    hooks:
+      - id: vulture
+        pass_filenames: true
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v0.901"
+    hooks:
+      - id: mypy
+        exclude: ^notebooks.*$
+        additional_dependencies:
+          - attrs
+          - types-requests
+          - types-toml
+
+  - repo: https://github.com/myint/docformatter
+    rev: v1.3.1
+    hooks:
+      - id: docformatter
+        exclude: ^.*(notebooks.*|__init__.py|test.*)$
+        args: [-i, "--wrap-summaries=0", "--wrap-descriptions=0", --blank]
+
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.1.1
+    hooks:
+      - id: pydocstyle
+        exclude: ^.*(notebooks.*|__init__.py|test.*)$
+
+  - repo: https://github.com/terrencepreilly/darglint
+    rev: v1.8.0
+    hooks:
+      - id: darglint
+        exclude: ^notebooks.*$
+        args: ["-v", "2"]
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.19.4
+    hooks:
+      - id: pyupgrade
+        exclude: ^notebooks.*$
+        args: [--py3-plus, --py36-plus]
+
+  - repo: https://github.com/seddonym/import-linter
+    rev: v1.2.1
+    hooks:
+      - id: import-linter
+        exclude: ^notebooks.*$
+
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.0
+    hooks:
+      - id: absolufy-imports
+        exclude: ^notebooks.*$
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.3.9
+    hooks:
+      - id: nbstripout
+
+  - repo: https://github.com/mwouts/jupytext
+    rev: v1.11.3
+    hooks:
+      - id: jupytext
+        files: ^notebooks/.*(py|ipynb)$
+        exclude: "^.*__init__.py"
+        args:
+          [
+            --pre-commit-mode,
+            --update-metadata,
+            '{"jupytext":{"notebook_metadata_filter":"-all", "cell_metadata_filter":"-all"}, "accelerator":"GPU"}',
+            --set-formats,
+            "notebooks//nb_python//py:percent,notebooks//notes//ipynb,",
+            --pipe,
+            'isort - --treat-comment-as-code "# %%"',
+            --pipe-fmt,
+            "py:percent",
+            --sync,
+          ]
+        additional_dependencies:
+          - "nbformat<=5.0.8"
+          - isort
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.7.2.1
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/PyCQA/doc8
+    rev: 0.8.1
+    hooks:
+      - id: doc8
+        args:
+          [
+            "--max-line-length=120",
+            "--ignore-path=docs/source/_**",
+            "--ignore=D002,D004",
+            "docs/source",
+          ]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: ["--maxkb=2000"]
+      - id: check-xml
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: requirements-txt-fixer
+
+  - repo: local
+    hooks:
+      - id: python-no-logging
+        name: use `from loguru import logger`
+        description: "A quick check to ensure we're using loguru"
+        entry: ^import logging((?!noqa).)*$
+        language: pygrep
+        types: [python]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v2.3.2"
+    hooks:
+      - id: prettier
+        exclude: ((cruft|cookiecutter)\.json)|(environment\.yml)
+
+  - repo: https://github.com/jonzarecki/cruft
+    rev: 2.9.0-alpha.3
+    hooks:
+      - id: cruft
+        always_run: true
+        stages: [push]

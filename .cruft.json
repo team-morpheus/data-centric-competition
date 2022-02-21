@@ -1,0 +1,24 @@
+{
+  "template": "https://github.com/jonzarecki/cookiecutter-test",
+  "commit": "b886aa404cc46ab6d0cbdc1db75849b11facdd5e",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "data-centric-competition",
+      "package_name": "dc_comp",
+      "friendly_name": "Data Centric Competition",
+      "author": "Morpheus",
+      "email": "mail@jonzarecki.com",
+      "github_user": "jonzarecki",
+      "version": "0.0.0",
+      "license": "MIT",
+      "development_status": "Development Status :: 1 - Planning",
+      "_copy_without_render": [
+        "*.html",
+        "**docs/source/_templates/**"
+      ],
+      "_template": "https://github.com/jonzarecki/cookiecutter-test"
+    }
+  },
+  "directory": null
+}

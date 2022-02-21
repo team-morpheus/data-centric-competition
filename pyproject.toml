@@ -1,0 +1,77 @@
+[tool.coverage.run]
+source = ["dc_comp", "common"]
+omit = [
+  "setup.py",
+  "*config*.py",
+  "*constants*.py",
+  "**/notebooks/**",
+  "*/tests/*",
+  "*/main.py",
+  "**/__init__.py"]
+data_file = ".cache/.coverage"
+
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if __name__ == .__main__.:",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+python_files = [
+  "test_*.py",
+#   "example_*.py"
+]
+
+
+
+[tool.mypy]
+python_version = "3.7"
+show_error_context = true
+show_column_numbers = true
+pretty = true
+show_error_codes = true
+
+disallow_any_generics = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = false
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+no_implicit_reexport = true
+#disallow_subclassing_any = true
+#disallow_untyped_calls = true
+#disallow_any_unimported = true
+#warn_unused_configs = true
+# warn_unused_ignores = true  # purposely disabled
+#strict_equality = true
+
+#[[tool.mypy.overrides]]  # example of module disable for mypy
+#module = "google.oauth2.*"
+#ignore_missing_imports = true
+
+[tool.vulture]
+# ignore_decorators = ["@app.route", "@require_*"]
+exclude = ["notebooks/", "**/tests/"]
+make_whitelist = true
+min_confidence = 100
+paths = ["dc_comp", "common"]
+sort_by_size = true
+verbose = false  # verbose doesn't work on utf-8

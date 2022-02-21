@@ -1,0 +1,41 @@
+name: dc_comp
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.7
+  - pip
+#  # Core scientific python
+#  - numpy
+#  - matplotlib
+#  - seaborn
+#  - scikit-learn
+#  - scikit-image
+#
+#  # Deep Learning
+#  - pytorch=>1.6
+#  - pytorch-lightning=>1.1
+#  - torchvision
+#  - cudatoolkit
+#
+#  # Jupyter Environment
+#  - notebook
+#  - ipython
+#  - jupyter_contrib_nbextensions
+#  - jupyterlab
+#  - jupyter
+#  - nb_conda
+#
+#  # Web app / visualization
+#  - bokeh>2
+#  - holoviews
+
+  - pip:
+    - loguru
+#      - wandb
+#      - panel
+#      - streamlit
+#      - pathos
+#      - sqlfluff # for sql linting

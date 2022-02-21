@@ -1,0 +1,16 @@
+{
+  "_copy_without_render": [
+    "*.html",
+    "**docs/source/_templates/**"
+  ],
+  "_template": "https://github.com/jonzarecki/cookiecutter-test",
+  "author": "Morpheus",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "mail@jonzarecki.com",
+  "friendly_name": "Data Centric Competition",
+  "github_user": "jonzarecki",
+  "license": "MIT",
+  "package_name": "dc_comp",
+  "project_name": "data-centric-competition",
+  "version": "0.0.0"
+}
