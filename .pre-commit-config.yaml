@@ -120,34 +120,6 @@ repos:
       - id: absolufy-imports
         exclude: ^notebooks.*$
 
-  - repo: https://github.com/kynan/nbstripout
-    rev: 0.3.9
-    hooks:
-      - id: nbstripout
-
-  - repo: https://github.com/mwouts/jupytext
-    rev: v1.11.3
-    hooks:
-      - id: jupytext
-        files: ^notebooks/.*(py|ipynb)$
-        exclude: "^.*__init__.py"
-        args:
-          [
-            --pre-commit-mode,
-            --update-metadata,
-            '{"jupytext":{"notebook_metadata_filter":"-all", "cell_metadata_filter":"-all"}, "accelerator":"GPU"}',
-            --set-formats,
-            "notebooks//nb_python//py:percent,notebooks//notes//ipynb,",
-            --pipe,
-            'isort - --treat-comment-as-code "# %%"',
-            --pipe-fmt,
-            "py:percent",
-            --sync,
-          ]
-        additional_dependencies:
-          - "nbformat<=5.0.8"
-          - isort
-
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.7.2.1
     hooks:
