@@ -1,6 +1,5 @@
 """Nox sessions."""
 import os
-import shutil
 from pathlib import Path
 from typing import List
 
@@ -11,7 +10,7 @@ from nox import Session
 package = "dc_comp"
 python_versions = ["3.7"]
 nox.needs_version = ">= 2021.6.6"
-nox.options.sessions = ("tests", "xdoctest", "docs-build")  # , "pre-commit"
+nox.options.sessions = ("tests", "xdoctest")  # , "pre-commit"
 pyproject_data = toml.loads(Path("pyproject.toml").read_text())
 submodule_paths = []
 if os.path.exists(".gitmodules"):
@@ -67,29 +66,3 @@ def xdoctest(sess: Session) -> None:
     args = sess.posargs or ["all"]
     sess.install("xdoctest[colors]")
     sess.run("python", "-m", "xdoctest", package, *args)
-
-
-@nox.session(name="docs-build", python=python_versions)
-def docs_build(sess: Session) -> None:
-    """Build the documentation."""
-    args = sess.posargs or ["docs/source", "docs/_build"]
-    sess.install("-r", "docs/source/requirements.txt")
-
-    build_dir = Path("docs", "_build")
-    if build_dir.exists():
-        shutil.rmtree(build_dir)
-
-    sess.run("sphinx-build", *args)
-
-
-@nox.session(python=python_versions)
-def docs(sess: Session) -> None:
-    """Build and serve the documentation with live reloading on file changes."""
-    args = sess.posargs or ["--open-browser", "docs/source", "docs/_build"]
-    sess.install("-r", "docs/source/requirements.txt")
-
-    build_dir = Path("docs", "_build")
-    if build_dir.exists():
-        shutil.rmtree(build_dir)
-
-    sess.run("sphinx-autobuild", *args)
