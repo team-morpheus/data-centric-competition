@@ -125,18 +125,6 @@ repos:
     hooks:
       - id: shellcheck
 
-  - repo: https://github.com/PyCQA/doc8
-    rev: 0.8.1
-    hooks:
-      - id: doc8
-        args:
-          [
-            "--max-line-length=120",
-            "--ignore-path=docs/source/_**",
-            "--ignore=D002,D004",
-            "docs/source",
-          ]
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
