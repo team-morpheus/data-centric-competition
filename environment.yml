@@ -7,20 +7,20 @@ channels:
 dependencies:
   - python=3.8
   - pip
-#  # Core scientific python
-#  - numpy
-#  - matplotlib
-#  - seaborn
-#  - scikit-learn
-#  - scikit-image
-#
+  # Core scientific python
+  - numpy
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - scikit-image
+
 # Deep Learning
 #  - pytorch=>1.6
 #  - pytorch-lightning=>1.1
 #  - torchvision
 #  - cudatoolkit
 #
-#  # Jupyter Environment
+  # Jupyter Environment
   - notebook
   - ipython
   - jupyter_contrib_nbextensions
@@ -28,16 +28,17 @@ dependencies:
   - jupyter
   - nb_conda
 
-#  # Web app / visualization
-#  - bokeh>2
-#  - holoviews
+  # Web app / visualization
+  - bokeh>2
+  - holoviews
 
   - pip:
     - loguru
     - opencv-python
     - tensorflow
+    - tqdm
+    - panel
+    - streamlit
+    - pathos
 #      - wandb
-#      - panel
-#      - streamlit
-#      - pathos
 #      - sqlfluff # for sql linting

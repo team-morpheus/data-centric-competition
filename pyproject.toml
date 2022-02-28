@@ -41,7 +41,7 @@ python_files = [
 
 
 [tool.mypy]
-python_version = "3.7"
+python_version = "3.8"
 show_error_context = true
 show_column_numbers = true
 pretty = true
@@ -69,9 +69,9 @@ no_implicit_reexport = true
 
 [tool.vulture]
 # ignore_decorators = ["@app.route", "@require_*"]
-exclude = ["notebooks/", "**/tests/"]
+exclude = ["notebooks/", "**/tests/", "common/**"]
 make_whitelist = true
 min_confidence = 100
-paths = ["dc_comp", "common"]
+paths = ["dc_comp"]
 sort_by_size = true
 verbose = false  # verbose doesn't work on utf-8

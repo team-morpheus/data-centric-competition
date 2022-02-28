@@ -85,7 +85,7 @@ repos:
     rev: v1.3.1
     hooks:
       - id: docformatter
-        exclude: ^.*(notebooks.*|__init__.py|test.*)$
+        exclude: ^.*(common.*|notebooks.*|__init__.py|test.*)$
         args: [-i, "--wrap-summaries=0", "--wrap-descriptions=0", --blank]
 
   - repo: https://github.com/pycqa/pydocstyle
