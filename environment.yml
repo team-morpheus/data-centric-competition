@@ -5,7 +5,7 @@ channels:
   - defaults
 
 dependencies:
-  - python=3.7
+  - python=3.8
   - pip
 #  # Core scientific python
 #  - numpy
@@ -14,26 +14,28 @@ dependencies:
 #  - scikit-learn
 #  - scikit-image
 #
-#  # Deep Learning
+# Deep Learning
 #  - pytorch=>1.6
 #  - pytorch-lightning=>1.1
 #  - torchvision
 #  - cudatoolkit
 #
 #  # Jupyter Environment
-#  - notebook
-#  - ipython
-#  - jupyter_contrib_nbextensions
-#  - jupyterlab
-#  - jupyter
-#  - nb_conda
-#
+  - notebook
+  - ipython
+  - jupyter_contrib_nbextensions
+  - jupyterlab
+  - jupyter
+  - nb_conda
+
 #  # Web app / visualization
 #  - bokeh>2
 #  - holoviews
 
   - pip:
     - loguru
+    - opencv-python
+    - tensorflow
 #      - wandb
 #      - panel
 #      - streamlit
