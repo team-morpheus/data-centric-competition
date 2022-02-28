@@ -5,10 +5,13 @@ import tensorflow as tf
 
 from common import constants
 
-directory = os.path.join(constants.PROJECT_ROOT, "data", "orig")
+directory = os.path.join(constants.DATA_DIR, "orig")
+epoch_num = 30  # in the comp it's 100
 user_data = directory
 valid_data = os.path.join(directory, "val")  # val
-test_data = os.path.join(directory, "val")  # this can be the label book, or any other test set you create
+test_data = os.path.join(
+    constants.DATA_DIR, "label_book"
+)  # this can be the label book, or any other test set you create
 
 ### DO NOT MODIFY BELOW THIS LINE, THIS IS THE FIXED MODEL ###
 batch_size = 8
@@ -87,7 +90,7 @@ if __name__ == "__main__":
     history = model.fit(
         train,
         validation_data=valid,
-        epochs=100,
+        epochs=epoch_num,
         callbacks=[checkpoint],
     )
 

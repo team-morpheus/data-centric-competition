@@ -9,11 +9,10 @@ PROJECT_NAME = "dc_comp"
 USER_ROOT_DIR = os.path.dirname(os.path.dirname(PROJECT_ROOT))
 
 # consistent for all projects
-LONG_TERM_DIR = "/media/yonatanz/yz/"
-LONG_TERM_DIR = LONG_TERM_DIR if os.path.exists(LONG_TERM_DIR) else "/cortex/users/jonzarecki/long_term/"
+LONG_TERM_DIR = PROJECT_ROOT
 
 PROJ_LONG_TERM_DIR = os.path.join(LONG_TERM_DIR, PROJECT_NAME)
-DATA_LONG_TERM_DIR = os.path.join(LONG_TERM_DIR, "data")
+DATA_DIR = os.path.join(LONG_TERM_DIR, "data")
 MODEL_LONG_TERM_DIR = os.path.join(LONG_TERM_DIR, "models")
 
 _curr_time = datetime.now().isoformat(" ", "seconds")
