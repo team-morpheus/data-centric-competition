@@ -55,10 +55,7 @@ def tests(sess: Session) -> None:
     ]
     run_paths = [p for p in pyproject_data["tool"]["coverage"]["run"]["source"] if p not in submodule_paths]
 
-    try:
-        sess.run("coverage", "run", "--parallel", *omit_paths, "-m", "pytest", *run_paths, *sess.posargs)
-    finally:
-        sess.notify("coverage", posargs=[])
+    sess.run("coverage", "run", "--parallel", *omit_paths, "-m", "pytest", *run_paths, *sess.posargs)
 
 
 @nox.session(python=False)
